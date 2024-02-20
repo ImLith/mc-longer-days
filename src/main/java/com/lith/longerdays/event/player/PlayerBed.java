@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
-import main.java.com.lith.lithcore.utils.WorldUtil;
+import com.lith.lithcore.utils.WorldUtil;
 
 public class PlayerBed implements Listener {
     private int sleeping;

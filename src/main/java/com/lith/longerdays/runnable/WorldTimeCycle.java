@@ -7,9 +7,9 @@ import java.util.Map;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.lith.longerdays.config.ConfigManager;
-import main.java.com.lith.lithcore.utils.WorldUtil;
-import main.java.com.lith.lithcore.constants.WorldConstant;
-import main.java.com.lith.lithcore.utils.ConverterUtil;
+import com.lith.lithcore.utils.WorldUtil;
+import com.lith.lithcore.constants.WorldConstant;
+import com.lith.lithcore.utils.ConverterUtil;
 
 public class WorldTimeCycle {
     private final Plugin plugin;

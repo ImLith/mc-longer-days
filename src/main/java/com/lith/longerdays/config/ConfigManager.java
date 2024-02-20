@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.bukkit.configuration.file.FileConfiguration;
-import main.java.com.lith.lithcore.config.PluginConfigManager;
+import com.lith.lithcore.config.PluginConfigManager;
 import com.lith.longerdays.Static;
 
 public class ConfigManager extends PluginConfigManager {
