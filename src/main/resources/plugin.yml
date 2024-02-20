@@ -1,4 +1,4 @@
-name: Longer Days
+name: LongerDays
 main: com.lith.longerdays.Plugin
 
 version: 0.0.1
@@ -8,5 +8,5 @@ description: A MineCraft plugin for Longer Days
 author: Lith
 website: https://github.com/ImLith/mc-longer-days
 
-depend: []
+depend: [LithCore]
 softdepend: []

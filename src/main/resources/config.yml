@@ -1,0 +1,9 @@
+# Day cycle in minutes
+day: 30
+
+# Night cycle in minutes
+night: 5
+
+# Worlds to enable
+worlds:
+  - "world"
