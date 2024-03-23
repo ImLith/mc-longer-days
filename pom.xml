@@ -3,7 +3,7 @@
 
   <groupId>com.lith.longerdays</groupId>
   <artifactId>longerdays</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
 
   <name>LongerDays</name>
   <packaging>jar</packaging>
@@ -32,7 +32,7 @@
     <dependency>
         <groupId>com.lith.lithcore</groupId>
         <artifactId>lithcore</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.6</version>
         <scope>provided</scope>
     </dependency>
   </dependencies>
