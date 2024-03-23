@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.bukkit.configuration.file.FileConfiguration;
-import com.lith.lithcore.config.PluginConfigManager;
+import com.lith.lithcore.abstractClasses.MainPlugin;
+import com.lith.lithcore.abstractClasses.PluginConfigManager;
 import com.lith.longerdays.Static;
 
 public class ConfigManager extends PluginConfigManager {
@@ -13,8 +13,8 @@ public class ConfigManager extends PluginConfigManager {
     private int night;
     private Set<String> worlds;
 
-    public ConfigManager(final FileConfiguration config) {
-        super(config);
+    public ConfigManager(final MainPlugin<ConfigManager> plugin) {
+        super(plugin);
 
         this.validate();
     }
