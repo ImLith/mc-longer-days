@@ -9,9 +9,11 @@ import com.lith.longerdays.event.player.PlayerBed;
 import com.lith.longerdays.runnable.WorldTimeCycle;
 
 public class Plugin extends MainPlugin<ConfigManager> {
-  private ConfigManager cm;
+  public static Plugin plugin;
 
   public void onEnable() {
+    Plugin.plugin = this;
+
     new ConfigManager(this);
 
     this.registerEvents();
@@ -24,10 +26,6 @@ public class Plugin extends MainPlugin<ConfigManager> {
     this.setDaylightCycle(true);
 
     Static.log.info("Plugin disabled");
-  }
-
-  public ConfigManager getConfigManager() {
-    return this.cm;
   }
 
   private void registerEvents() {
@@ -55,7 +53,7 @@ public class Plugin extends MainPlugin<ConfigManager> {
   }
 
   private void registerRunnable() {
-    final WorldTimeCycle cycle = new WorldTimeCycle(this);
+    final WorldTimeCycle cycle = new WorldTimeCycle();
 
     Bukkit.getWorlds()
         .stream()

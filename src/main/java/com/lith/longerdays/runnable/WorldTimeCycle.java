@@ -6,19 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.lith.longerdays.config.ConfigManager;
 import com.lith.lithcore.utils.WorldUtil;
 import com.lith.lithcore.constants.WorldConstant;
 import com.lith.lithcore.utils.ConverterUtil;
 
 public class WorldTimeCycle {
-    private final Plugin plugin;
-    private final ConfigManager cm;
     private final Map<String, Long> counts;
 
-    public WorldTimeCycle(final Plugin plugin) {
-        this.plugin = plugin;
-        this.cm = this.plugin.getConfigManager();
+    public WorldTimeCycle() {
         this.counts = new HashMap<>();
     }
 
@@ -30,16 +25,16 @@ public class WorldTimeCycle {
                 Integer configTime = null;
 
                 if (WorldUtil.isDay(world))
-                    configTime = cm.getDay();
+                    configTime = Plugin.plugin.cm.getDay();
                 else if (WorldUtil.isNight(world))
-                    configTime = cm.getNight();
+                    configTime = Plugin.plugin.cm.getNight();
 
                 if (configTime != null)
                     setTime(world, ConverterUtil.convertMinsToTicks(configTime));
                 else
                     Static.log.warning(world.getName() + " world time " + worldTime + " is impossible");
             }
-        }.runTaskTimer(this.plugin, 0, 1);
+        }.runTaskTimer(Plugin.plugin, 0, 1);
 
         Static.log.info("Running day and night cycles for world '" + world.getName() + "'");
     }
