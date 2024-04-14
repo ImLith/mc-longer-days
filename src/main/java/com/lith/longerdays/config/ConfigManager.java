@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import com.lith.lithcore.abstractClasses.AbstractConfigManager;
 import com.lith.longerdays.Plugin;
-import com.lith.longerdays.Static;
+import com.lith.longerdays.Static.Defaults;
 
 public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> {
     private int day;
@@ -41,13 +41,13 @@ public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> 
     }
 
     private void validateDay() {
-        final int day = this.config.getInt("day", Static.defaultDayTime);
+        final int day = this.config.getInt("day", Defaults.DAY_TIME);
 
         if (day <= 0) {
-            this.day = Static.defaultDayTime;
+            this.day = Defaults.DAY_TIME;
 
             Plugin.plugin.log.warning("Set day cycle to " + day + " minutes is not safe, reverting to default "
-                    + Static.defaultDayTime + " minutes!");
+                    + Defaults.DAY_TIME + " minutes!");
         } else {
             this.day = day;
 
@@ -56,13 +56,13 @@ public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> 
     }
 
     private void validateNight() {
-        final int night = this.config.getInt("night", Static.defaultNightTime);
+        final int night = this.config.getInt("night", Defaults.NIGHT_TIME);
 
         if (night <= 0) {
-            this.night = Static.defaultNightTime;
+            this.night = Defaults.NIGHT_TIME;
 
             Plugin.plugin.log.warning("Set night cycle to " + night + " minutes is not safe, reverting to default "
-                    + Static.defaultNightTime + " minutes!");
+                    + Defaults.NIGHT_TIME + " minutes!");
         } else {
             this.night = night;
 
