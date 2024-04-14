@@ -4,18 +4,21 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import com.lith.lithcore.abstractClasses.MainPlugin;
-import com.lith.lithcore.abstractClasses.PluginConfigManager;
+import com.lith.lithcore.abstractClasses.AbstractConfigManager;
+import com.lith.longerdays.Plugin;
 import com.lith.longerdays.Static;
 
-public class ConfigManager extends PluginConfigManager {
+public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> {
     private int day;
     private int night;
     private Set<String> worlds;
 
-    public ConfigManager(final MainPlugin<ConfigManager> plugin) {
+    public ConfigManager(final Plugin plugin) {
         super(plugin);
+    }
 
+    @Override
+    public void load() {
         this.validate();
     }
 

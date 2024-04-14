@@ -8,7 +8,7 @@ import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.lith.lithcore.utils.WorldUtil;
 import com.lith.lithcore.constants.WorldConstant;
-import com.lith.lithcore.utils.ConverterUtil;
+import com.lith.lithcore.utils.TimeUtil;
 
 public class WorldTimeCycle {
     private final Map<String, Long> counts;
@@ -25,12 +25,12 @@ public class WorldTimeCycle {
                 Integer configTime = null;
 
                 if (WorldUtil.isDay(world))
-                    configTime = Plugin.plugin.cm.getDay();
+                    configTime = Plugin.plugin.configs.getDay();
                 else if (WorldUtil.isNight(world))
-                    configTime = Plugin.plugin.cm.getNight();
+                    configTime = Plugin.plugin.configs.getNight();
 
                 if (configTime != null)
-                    setTime(world, ConverterUtil.convertMinsToTicks(configTime));
+                    setTime(world, TimeUtil.convertMinsToTicks(configTime));
                 else
                     Static.log.warning(world.getName() + " world time " + worldTime + " is impossible");
             }

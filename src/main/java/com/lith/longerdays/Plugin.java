@@ -3,12 +3,13 @@ package com.lith.longerdays;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.lith.lithcore.abstractClasses.MainPlugin;
+
+import com.lith.lithcore.abstractClasses.AbstractPlugin;
 import com.lith.longerdays.config.ConfigManager;
 import com.lith.longerdays.event.player.PlayerBed;
 import com.lith.longerdays.runnable.WorldTimeCycle;
 
-public class Plugin extends MainPlugin<ConfigManager> {
+public class Plugin extends AbstractPlugin<Plugin, ConfigManager> {
   public static Plugin plugin;
 
   public void onEnable() {
@@ -28,8 +29,9 @@ public class Plugin extends MainPlugin<ConfigManager> {
     Static.log.info("Plugin disabled");
   }
 
-  private void registerEvents() {
-    this.getServer().getPluginManager().registerEvents(new PlayerBed(), this);
+  @Override
+  protected void registerEvents() {
+    registerEvent(new PlayerBed());
   }
 
   private void registerRunnables() {
@@ -45,7 +47,7 @@ public class Plugin extends MainPlugin<ConfigManager> {
   private void setDaylightCycle(final boolean value) {
     Bukkit.getWorlds()
         .stream()
-        .filter(world -> this.cm.getWorlds().contains(world.getName()))
+        .filter(world -> this.configs.getWorlds().contains(world.getName()))
         .forEach(world -> {
           world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, value);
           Static.log.info("Setting GameRule.DO_DAYLIGHT_CYCLE to " + value + " for world '" + world.getName() + "'");
@@ -57,7 +59,7 @@ public class Plugin extends MainPlugin<ConfigManager> {
 
     Bukkit.getWorlds()
         .stream()
-        .filter(world -> this.cm.getWorlds().contains(world.getName()))
+        .filter(world -> this.configs.getWorlds().contains(world.getName()))
         .forEach(cycle::runCycles);
   }
 }
