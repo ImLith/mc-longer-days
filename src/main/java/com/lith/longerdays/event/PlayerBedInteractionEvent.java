@@ -9,36 +9,36 @@ import org.bukkit.event.player.PlayerBedLeaveEvent;
 import com.lith.lithcore.utils.WorldUtil;
 
 public class PlayerBedInteractionEvent implements Listener {
-    private int sleeping;
-    private boolean skipNight = false;
+    private int sleepingCount;
+    private boolean skipNight;
 
     @EventHandler
-    public void onPlayerBedEnter(final PlayerBedEnterEvent event) {
-        final World world = event.getPlayer().getWorld();
+    public void onPlayerBedEnter(PlayerBedEnterEvent event) {
+        if (!WorldUtil.isNight(event.getPlayer().getWorld()))
+            return;
+        if (event.getBedEnterResult() != PlayerBedEnterEvent.BedEnterResult.OK)
+            return;
+
+        World world = event.getPlayer().getWorld();
         int worldPlayerCount = world.getPlayers().size();
 
-        if (WorldUtil.isNight(world)) {
-            if (event.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
-                this.sleeping++;
+        sleepingCount++;
 
-                final int percentage = world.getGameRuleValue(GameRule.PLAYERS_SLEEPING_PERCENTAGE);
-                Double sleepingPercentage = ((double) this.sleeping / worldPlayerCount) * 100;
+        int percentage = world.getGameRuleValue(GameRule.PLAYERS_SLEEPING_PERCENTAGE);
+        int sleepingPercentage = (int) (((double) sleepingCount / worldPlayerCount) * 100);
 
-                if (sleepingPercentage >= percentage)
-                    this.skipNight = true;
-            }
-        }
+        if (sleepingPercentage >= percentage)
+            skipNight = true;
     }
 
     @EventHandler
-    public void onPlayerBedLeave(final PlayerBedLeaveEvent event) {
-        final World world = event.getPlayer().getWorld();
+    public void onPlayerBedLeave(PlayerBedLeaveEvent event) {
+        if (skipNight) {
+            skipNight = false;
+            sleepingCount = 0;
 
-        if (this.skipNight == true) {
-            this.skipNight = false;
-            this.sleeping = 0;
-            world.setTime(0);
-        } else if (this.sleeping > 0)
-            this.sleeping--;
+            event.getPlayer().getWorld().setTime(0);
+        } else if (sleepingCount > 0)
+            sleepingCount--;
     }
 }
