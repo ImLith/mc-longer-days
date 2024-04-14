@@ -10,32 +10,24 @@ import com.lith.lithcore.constants.WorldConstant;
 import com.lith.lithcore.utils.TimeUtil;
 
 public class WorldTimeCycle {
+    private final Plugin plugin;
     private final Map<String, Long> counts;
 
-    public WorldTimeCycle() {
+    public WorldTimeCycle(Plugin plugin) {
         this.counts = new HashMap<>();
+        this.plugin = plugin;
     }
 
     public void runCycles(final World world) {
         new BukkitRunnable() {
             @Override
             public void run() {
-                final long worldTime = world.getTime();
-                Integer configTime = null;
-
-                if (WorldUtil.isDay(world))
-                    configTime = Plugin.plugin.configs.getDay();
-                else if (WorldUtil.isNight(world))
-                    configTime = Plugin.plugin.configs.getNight();
-
-                if (configTime != null)
-                    setTime(world, TimeUtil.convertMinsToTicks(configTime));
-                else
-                    Plugin.plugin.log.warning(world.getName() + " world time " + worldTime + " is impossible");
+                setTime(world, TimeUtil.convertMinsToTicks(
+                        WorldUtil.isDay(world) ? plugin.configs.getDay() : plugin.configs.getNight()));
             }
-        }.runTaskTimer(Plugin.plugin, 0, 1);
+        }.runTaskTimer(plugin, 0, 1);
 
-        Plugin.plugin.log.info("Running day and night cycles for world '" + world.getName() + "'");
+        plugin.log.info("Running day and night cycles for world '" + world.getName() + "'");
     }
 
     private void setTime(final World world, final long time) {
@@ -43,24 +35,25 @@ public class WorldTimeCycle {
         final double ratio = (1.0 / (time / (double) WorldConstant.DAY_TIME_MAX_VALUE));
         long currentTime = world.getTime();
 
-        this.counts.putIfAbsent(worldName, 0L);
+        counts.putIfAbsent(worldName, 0L);
 
         if (ratio > 1.0) {
             currentTime += Math.round(ratio);
 
             world.setTime(currentTime);
-            this.counts.put(worldName, 0L);
+            counts.put(worldName, 0L);
         } else if (ratio < 1.0) {
-            final long count = this.counts.get(worldName);
+            final long count = counts.get(worldName);
+            long countSetter = count - 1;
 
             if (count <= 0) {
                 currentTime += 1;
 
                 world.setTime(currentTime);
-                this.counts.put(worldName, Math.round(1.0 / ratio) - 1);
-            } else {
-                this.counts.put(worldName, count - 1);
+                countSetter = Math.round(1.0 / ratio) - 1;
             }
+
+            counts.put(worldName, countSetter);
         } else {
             world.setTime(++currentTime);
         }

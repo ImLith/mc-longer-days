@@ -1,32 +1,23 @@
 package com.lith.longerdays;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.lith.lithcore.abstractClasses.AbstractPlugin;
+import com.lith.lithcore.utils.WorldUtil;
 import com.lith.longerdays.config.ConfigManager;
 import com.lith.longerdays.event.PlayerBedInteractionEvent;
 import com.lith.longerdays.runnable.WorldTimeCycle;
 
 public class Plugin extends AbstractPlugin<Plugin, ConfigManager> {
-  public static Plugin plugin;
-
   @Override
   public void onEnable() {
-    Plugin.plugin = this;
-
     configs = new ConfigManager(this);
-
-    // this.registerEvents();
-    // this.registerRunnables();
-
     super.onEnable();
   }
 
   @Override
   public void onDisable() {
-    this.setDaylightCycle(true);
-
+    WorldUtil.setDaylightCycle(true, this.configs.getWorlds());
     super.onDisable();
   }
 
@@ -35,32 +26,23 @@ public class Plugin extends AbstractPlugin<Plugin, ConfigManager> {
     registerEvent(new PlayerBedInteractionEvent());
   }
 
-  private void registerRunnables() {
+  @Override
+  protected void registerRunnables() {
     new BukkitRunnable() {
       @Override
       public void run() {
-        setDaylightCycle(false);
-        registerRunnable();
+        WorldUtil.setDaylightCycle(false, configs.getWorlds());
+        registerWorldTimeCycle();
       }
     }.runTask(this);
   }
 
-  private void setDaylightCycle(final boolean value) {
-    Bukkit.getWorlds()
-        .stream()
-        .filter(world -> this.configs.getWorlds().contains(world.getName()))
-        .forEach(world -> {
-          world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, value);
-          plugin.log.info("Setting GameRule.DO_DAYLIGHT_CYCLE to " + value + " for world '" + world.getName() + "'");
-        });
-  }
-
-  private void registerRunnable() {
-    final WorldTimeCycle cycle = new WorldTimeCycle();
+  private void registerWorldTimeCycle() {
+    final WorldTimeCycle cycle = new WorldTimeCycle(this);
 
     Bukkit.getWorlds()
         .stream()
-        .filter(world -> this.configs.getWorlds().contains(world.getName()))
+        .filter(world -> configs.getWorlds().contains(world.getName()))
         .forEach(cycle::runCycles);
   }
 }
