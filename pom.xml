@@ -3,7 +3,7 @@
 
   <groupId>com.lith.longerdays</groupId>
   <artifactId>longerdays</artifactId>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
 
   <name>LongerDays</name>
   <packaging>jar</packaging>
@@ -32,8 +32,16 @@
     <dependency>
         <groupId>com.lith.lithcore</groupId>
         <artifactId>lithcore</artifactId>
-        <version>0.0.7</version>
+        <version>0.1.0</version>
         <scope>provided</scope>
+    </dependency>
+
+    <!-- Lombok for @Getter and @Setter -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.32</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
