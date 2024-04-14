@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import com.lith.lithcore.abstractClasses.AbstractConfigManager;
 import com.lith.longerdays.Plugin;
-import com.lith.longerdays.Static;
+import com.lith.longerdays.Static.ConfigKeys;
 import com.lith.longerdays.Static.Defaults;
 import lombok.Getter;
 
@@ -22,11 +22,11 @@ public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> 
 
     @Override
     public void load() {
-        this.day = validateTime(Static.ConfigKeys.DAY, Defaults.DAY_TIME);
-        this.night = validateTime(Static.ConfigKeys.NIGHT, Defaults.NIGHT_TIME);
+        this.day = validateTime(ConfigKeys.DAY, Defaults.DAY_TIME);
+        this.night = validateTime(ConfigKeys.NIGHT, Defaults.NIGHT_TIME);
 
         this.worlds = new HashSet<>();
-        this.worlds.addAll(this.config.getStringList("worlds"));
+        this.worlds.addAll(this.config.getStringList(ConfigKeys.WORLDS));
     }
 
     private int validateTime(String key, int defaultTime) {

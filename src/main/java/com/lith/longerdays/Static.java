@@ -9,5 +9,6 @@ public class Static {
     public static final class ConfigKeys {
         public static final String DAY = "day";
         public static final String NIGHT = "night";
+        public static final String WORLDS = "worlds";
     }
 }
