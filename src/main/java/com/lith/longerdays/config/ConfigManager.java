@@ -22,10 +22,11 @@ public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> 
 
     @Override
     public void load() {
-        this.day = validateTime(ConfigKeys.DAY, Defaults.DAY_TIME);
-        this.night = validateTime(ConfigKeys.NIGHT, Defaults.NIGHT_TIME);
+        super.load();
 
         this.worlds = new HashSet<>();
+        this.day = validateTime(ConfigKeys.DAY, Defaults.DAY_TIME);
+        this.night = validateTime(ConfigKeys.NIGHT, Defaults.NIGHT_TIME);
         this.worlds.addAll(this.config.getStringList(ConfigKeys.WORLDS));
     }
 
