@@ -1,7 +1,6 @@
 package com.lith.longerdays.runnable;
 
 import com.lith.longerdays.Plugin;
-import com.lith.longerdays.Static;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.World;
@@ -32,11 +31,11 @@ public class WorldTimeCycle {
                 if (configTime != null)
                     setTime(world, TimeUtil.convertMinsToTicks(configTime));
                 else
-                    Static.log.warning(world.getName() + " world time " + worldTime + " is impossible");
+                    Plugin.plugin.log.warning(world.getName() + " world time " + worldTime + " is impossible");
             }
         }.runTaskTimer(Plugin.plugin, 0, 1);
 
-        Static.log.info("Running day and night cycles for world '" + world.getName() + "'");
+        Plugin.plugin.log.info("Running day and night cycles for world '" + world.getName() + "'");
     }
 
     private void setTime(final World world, final long time) {

@@ -20,13 +20,13 @@ public class Plugin extends AbstractPlugin<Plugin, ConfigManager> {
     this.registerEvents();
     this.registerRunnables();
 
-    Static.log.info("Plugin enabled");
+    plugin.log.info("Plugin enabled");
   }
 
   public void onDisable() {
     this.setDaylightCycle(true);
 
-    Static.log.info("Plugin disabled");
+    plugin.log.info("Plugin disabled");
   }
 
   @Override
@@ -50,7 +50,7 @@ public class Plugin extends AbstractPlugin<Plugin, ConfigManager> {
         .filter(world -> this.configs.getWorlds().contains(world.getName()))
         .forEach(world -> {
           world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, value);
-          Static.log.info("Setting GameRule.DO_DAYLIGHT_CYCLE to " + value + " for world '" + world.getName() + "'");
+          plugin.log.info("Setting GameRule.DO_DAYLIGHT_CYCLE to " + value + " for world '" + world.getName() + "'");
         });
   }
 

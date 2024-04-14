@@ -46,12 +46,12 @@ public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> 
         if (day <= 0) {
             this.day = Static.defaultDayTime;
 
-            Static.log.warning("Set day cycle to " + day + " minutes is not safe, reverting to default "
+            Plugin.plugin.log.warning("Set day cycle to " + day + " minutes is not safe, reverting to default "
                     + Static.defaultDayTime + " minutes!");
         } else {
             this.day = day;
 
-            Static.log.info("Set day cycle to " + this.day + " minutes.");
+            Plugin.plugin.log.info("Set day cycle to " + this.day + " minutes.");
         }
     }
 
@@ -61,12 +61,12 @@ public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> 
         if (night <= 0) {
             this.night = Static.defaultNightTime;
 
-            Static.log.warning("Set night cycle to " + night + " minutes is not safe, reverting to default "
+            Plugin.plugin.log.warning("Set night cycle to " + night + " minutes is not safe, reverting to default "
                     + Static.defaultNightTime + " minutes!");
         } else {
             this.night = night;
 
-            Static.log.info("Set night cycle to " + this.night + " minutes");
+            Plugin.plugin.log.info("Set night cycle to " + this.night + " minutes");
         }
     }
 
