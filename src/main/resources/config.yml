@@ -1,7 +1,5 @@
-# Day cycle in minutes
+# Day/Night cycle in minutes
 day: 30
-
-# Night cycle in minutes
 night: 5
 
 # Worlds to enable

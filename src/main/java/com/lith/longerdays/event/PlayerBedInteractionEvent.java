@@ -1,4 +1,4 @@
-package com.lith.longerdays.event.player;
+package com.lith.longerdays.event;
 
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import com.lith.lithcore.utils.WorldUtil;
 
-public class PlayerBed implements Listener {
+public class PlayerBedInteractionEvent implements Listener {
     private int sleeping;
     private boolean skipNight = false;
 

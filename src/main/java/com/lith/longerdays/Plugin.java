@@ -3,35 +3,36 @@ package com.lith.longerdays;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import com.lith.lithcore.abstractClasses.AbstractPlugin;
 import com.lith.longerdays.config.ConfigManager;
-import com.lith.longerdays.event.player.PlayerBed;
+import com.lith.longerdays.event.PlayerBedInteractionEvent;
 import com.lith.longerdays.runnable.WorldTimeCycle;
 
 public class Plugin extends AbstractPlugin<Plugin, ConfigManager> {
   public static Plugin plugin;
 
+  @Override
   public void onEnable() {
     Plugin.plugin = this;
 
-    new ConfigManager(this);
+    configs = new ConfigManager(this);
 
-    this.registerEvents();
-    this.registerRunnables();
+    // this.registerEvents();
+    // this.registerRunnables();
 
-    plugin.log.info("Plugin enabled");
+    super.onEnable();
   }
 
+  @Override
   public void onDisable() {
     this.setDaylightCycle(true);
 
-    plugin.log.info("Plugin disabled");
+    super.onDisable();
   }
 
   @Override
   protected void registerEvents() {
-    registerEvent(new PlayerBed());
+    registerEvent(new PlayerBedInteractionEvent());
   }
 
   private void registerRunnables() {
